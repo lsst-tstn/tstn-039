@@ -15,8 +15,10 @@ Abstract
 
 Describes the laser electronics cabinet, its design, how to use it, safety implications, and where to find additional documentation
 
-Add content here
+Documentation
 ================
+
+Docushare: https://docushare.lsst.org/docushare/dsweb/View/Collection-13124
 
 Add content here.
 See the `reStructuredText Style Guide <https://developer.lsst.io/restructuredtext/style.html>`__ to learn how to create sections, links, images, tables, equations, and more.

@@ -79,10 +79,6 @@ This Thermal Control Cabinet can be operated on 120VAC, 60Hz, 1 Phase, 15A for s
  :alt: as_built
  :scale: 50 %
 
-
-Operation
-==========
-
 - SW101: Controls the incoming power to the control cabinet. Interlocked to door per NEC requirements; disconnects all incoming AC power when ‘OFF’.
 - CB101: Circuit breaker for incoming power. Inline before any energy consuming devices. UL489 rated per NEC requirements. Supplies power to PDU1 which powers LASER. Continuously ‘ON’ when circuit breaker is in the ‘on’ position.
 - CB102: Circuit breaker for continuously powered devices. Inline before PS001 and PS004. UL508 rated per NEC requirements.
@@ -103,14 +99,49 @@ Operation
 
 - Safety relay SR001: This device is, technically, NOT part of the GIS system. This is a safety control, which ensures that the main power will be disconnected from the LASER enclosure when the lid is opened. The relay is presently configured in ‘Automatic start’ mode with ‘detection of shorts across contacts’, and will be wired to a lever-actuated, 2-pole, normally open switch mounted to the LASER enclosure; which activates when the lid is opened. Opening the lid on the LASER Enclosure will de-energize all of the electrical components, with the exception of the LASER power supply. This will ensure that service personnel will be safe, when working inside the Enclosure and that the crystal heaters inside the LASER will still be powered. Loss of Power to the enclosure will also remove power from the LASER’s safety interlock relay and the LASER cannot be operated. (The lever-switch can be purposefully defeated to allow powered service of the LASER if required… with appropriate site-specified safety procedures) 
 
-- Ethernet switch EthSw1: Powered at all times except when the interlock safety switch is ‘OFF’. Required for communications to internal devices. Supplies Ethernet ports for the Ethernet-to-Serial server, PDU, and Raspberry pi. Not enough power for POE! The power supply for this switch was chosen to minimize heat generation within the Thermal control cabinet and will not supply POE. (or very limited power to one port)
+
 - Ethernet-to-Serial Server, E2S001: Moxa 5450I, 4 port Eth to Serial server. Port 1 is RS232 for LASER communications and port 2 is RS485 communications to the Omron Temperature controller. Ports 3 and 4 are reserved for future expansion.
 - PDU1: power distribution unit. Port 3 is presently used for the power supplied to the Thermal controls within the cabinet. PS001, PS004 SR001, EthSw1 are NOT powered through this device. 2 other ports are used to supply power to the LASER power supply. (PS81120 series)
+
+ - Ethernet switch EthSw1: Powered at all times except when the interlock safety switch is ‘OFF’. Required for communications to internal devices. Supplies Ethernet ports for the Ethernet-to-Serial server, PDU, and Raspberry pi. Not enough power for POE! The power supply for this switch was chosen to minimize heat generation within the Thermal control cabinet and will not supply POE. (or very limited power to one port)
+
+
+Operation
+==========
+
+.. table:: IP Addresses
+
+   +--------------+-------------------+---------------------------------------+-------------------+-----------------+
+   | Component    | MAC address       | DHCP name                             | Static IP Address | TTS IP Adddress | 
+   +--------------+-------------------+---------------------------------------+-------------------+-----------------+
+   | PDU          | 0C 73 EB B0 67 36 | laserpdu.tu.lsst.org                  | 192.168.1.100     | 140.252.147.98  |
+   +--------------+-------------------+---------------------------------------+-------------------+-----------------+
+   | Moxa         | 00 90 E8 A3 B1 13 | lanToSerialConverterLaser.tu.lsst.org | 192.168.127.254   | 140.252.147.121 |
+   +--------------+-------------------+---------------------------------------+-------------------+-----------------+
+   | Cisco Switch | 20 CF AE 64 5E A0 | laserNetworkSwitch.tu.lsst.org        | 192.168.1.35      | 140.252.147.99  |
+   +--------------+-------------------+---------------------------------------+-------------------+-----------------+
+   | Raspberry Pi | E4 5f 01 35 d2 0d | laserRpi.tu.lsst.org                  | 168.254.40.34     | 140.252.147.122 |
+   +--------------+-------------------+---------------------------------------+-------------------+-----------------+
+
+.. table:: The PDU outlet numbering
+
+   +--------+--------------------+
+   | Outlet | Name               |
+   +--------+--------------------+
+   | 3      | Thermal Controls   |
+   +--------+--------------------+
+   | 7      | Laser (1/2)        |
+   +--------+--------------------+ 
+   | 8      | Laser (2/2)        |
+   +--------+--------------------+     
 
 
 .. note::
 
-  The heaters and cooling Fan **MUST NOT** be run for more than brief periods on 120VAC, they may be permanently damaged! If there must be an extended period of usage at 120VAC, CB203, CB204, CB205, CB206 can be set to OFF. No heating/cooling will be available but all other functions will be available. 
+  The heaters and cooling Fan **MUST NOT** be run for more than brief periods on 120VAC, they may be permanently damaged! If there must be an extended period of usage at 120VAC, CB203, CB204, CB205, CB206 can be set to OFF. No heating/cooling will be available but all other functions will be available.
+
+
+ 
 
 Additional Documentation
 ========================

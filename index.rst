@@ -78,7 +78,7 @@ This Thermal Control Cabinet can be operated on 120VAC, 60Hz, 1 Phase, 15A for s
  :target: ../_images/as_built.png
  :alt: as_built
  :scale: 50 %
-- TESTING
+
 - SW101: Controls the incoming power to the control cabinet. Interlocked to door per NEC requirements; disconnects all incoming AC power when ‘OFF’.
 - CB101: Circuit breaker for incoming power. Inline before any energy consuming devices. UL489 rated per NEC requirements. Supplies power to PDU1 which powers LASER. Continuously ‘ON’ when circuit breaker is in the ‘on’ position.
 - CB102: Circuit breaker for continuously powered devices. Inline before PS001 and PS004. UL508 rated per NEC requirements.

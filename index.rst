@@ -136,7 +136,7 @@ Cisco Catalyst `IE-3100-4T2S-E <https://www.cisco.com/c/en/us/products/collatera
 
 Ethernet-to-Serial Server
 -------------------------
-`Moxa 5450I-T <https://www.farnell.com/datasheets/2651339.pdf>`__, 4 port Eth to Serial server. Port 1 is RS232 for LASER communications and port 2 is RS485 communications to the Omron Temperature controller. Ports 3 and 4 are reserved for future expansion. Information on the Moxa setup can be found `here <https://ts-electrometer.lsst.io/developer-guide/developer-guide.html#moxa-serial-to-ethernet-converter>`__.
+`Moxa 5450I-T <http://store.express-inc.com/pdf/nport5400-usermanual.pdf>`__, 4 port Eth to Serial server. Port 1 is RS232 for LASER communications and port 2 is RS485 communications to the Omron Temperature controller. Ports 3 and 4 are reserved for future expansion. Information on the Moxa setup can be found `here <https://ts-electrometer.lsst.io/developer-guide/developer-guide.html#moxa-serial-to-ethernet-converter>`__.
 
 Power Distribution Unit (PDU)
 -----------------------------

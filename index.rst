@@ -24,7 +24,6 @@ Due to size restrictions on the laser platform, and a desire to remove heat sour
 
 Additionally, both the laser and electronics enclosures must meet the safety requirements for operating a class-4 laser.
 
-
 Requirements
 ============
 
@@ -65,14 +64,13 @@ There is a safety disconnect switch on the door of the electronics enclosure. Wh
   If the door to the electronics enclosure is opened, power will be completely turned off to the laser, including the crystals. If maintenance in the electronics enclosure is required, perhaps plug the laser into a backup power source so that the crystals will continue to be powered.
 
 
-
 Design
 ======
 
 .. figure:: /_static/Laser_Block_Diagram_Updated_Jan2024.png
- :name: block_diagram
+ :name: Laser_Block_Diagram_Updated_Jan2024
  :target: ../_images/Laser_Block_Diagram_Updated_Jan2024.png
- :alt: block_diagram
+ :alt: Laser_Block_Diagram_Updated_Jan2024
  :scale: 50 %
 
 Laser Enclosure
@@ -170,8 +168,6 @@ Large Cooling Fan
 -----------------
 Mechatronics Fan Group `UF200BMB23-H2C2A-B1 <https://www.mechatronics.com/pdf/UF200BMB-H2.pdf>`__, AC powered cooling fan, mounted within the wall of the Laser Enclosure. This fan is for cooling the laser enclosure when the temperature of the laser enclosure exceeds a set temperature. Activated when the temperature of the laser enclosure is higher than set point. The RTD scanner has multiple thermistors connected to multiple places in the laser enclosure, the temperatures are then read by the Raspberry Pi. The large cooling fan is then turned on when the Raspberry Pi reads the average temperature is higher than the set point and sends a signal to a SSR which turns on the large cooling fan.
 
-
-
 Operation
 ==========
 
@@ -201,18 +197,13 @@ Operation
    | 8      | Laser (2/2)        |
    +--------+--------------------+     
 
-
 .. note::
 
   The heaters and cooling fans **MUST NOT** be run for more than brief periods on 120VAC, they may be permanently damaged! If there must be an extended period of usage at 120VAC, CB203, CB204, CB205, CB206 can be set to OFF. No heating/cooling will be available but all other functions will be available.
 
-
- 
-
 Additional Documentation
 ========================
 Initial documentation for the whole laser system, including the laser enclosure, was done on `Confluence <https://confluence.lsstcorp.org/display/LTS/Calibration+LASER+Cabinet>`__, and additional notes for the electronics was documented `here <https://confluence.lsstcorp.org/display/LTS/Requirements+and+Notes+for+Enclosure+Thermal+Controls>`__.
-
 
 Docushare: https://docushare.lsst.org/docushare/dsweb/View/Collection-13124
 

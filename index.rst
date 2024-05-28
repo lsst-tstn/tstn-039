@@ -85,9 +85,9 @@ The laser enclosure is designed to turn off all the electronics, excluding the l
 
   When the laser enclosure is opened, the limit switch can be reactivated if necessary for testing purposes. This should only be done by the appropriate personnel.
 
-.. figure:: /_static/Laser Electronics Cabinet.png
+.. figure:: /_static/Laser Enclosure.png
  :name: Laser Enclosure
- :target: ../_images/Laser Electronics Cabinet.png
+ :target: ../_images/Laser Enclosure.png
  :alt: Laser Enclosure
  :scale: 100 %
 
@@ -101,9 +101,9 @@ The cabinet includes a PDU, a temperature controller for the laser, a Network Sw
 
 The facility will provide 220VAC for the electronics cabinet along with a single Ethernet cable, which will run to the Network Switch within the cabinet. When the laser enclosure is opened, power to the electronics cabinet will be removed with the exception of the PDU and the Network Switch to allow for the laser to remain powered and on network.
 
-.. figure:: /_static/as_built.png
+.. figure:: /_static/Laser Electronics Cabinet.png
  :name: as_built
- :target: ../_images/as_built.png
+ :target: ../_images/Laser Electronics Cabinet.png
  :alt: as_built
  :scale: 50 %
 

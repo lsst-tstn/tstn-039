@@ -85,9 +85,9 @@ The laser enclosure is designed to turn off all the electronics, excluding the l
 
   When the laser enclosure is opened, the limit switch can be reactivated if necessary for testing purposes. This should only be done by the appropriate personnel.
 
-.. figure:: /_static/Laser Enclosure.png
+.. figure:: /_static/Laser Electronics Cabinet.png
  :name: Laser Enclosure
- :target: ../_images/Laser Enclosure.png
+ :target: ../_images/Laser Electronics Cabinet.png
  :alt: Laser Enclosure
  :scale: 100 %
 

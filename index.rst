@@ -67,10 +67,10 @@ There is a safety disconnect switch on the door of the electronics enclosure. Wh
 Design
 ======
 
-.. figure:: /_static/Laser_Block_Diagram_Updated_Jan2024.png
- :name: Laser_Block_Diagram_Updated_Jan2024
- :target: ../_images/Laser_Block_Diagram_Updated_Jan2024.png
- :alt: Laser_Block_Diagram_Updated_Jan2024
+.. figure:: /_static/Laser_Electronics_Block_Diagram.PNG
+ :name: Laser Block Diagram
+ :target: ../_images/Laser_Electronics_Block_Diagram.PNG
+ :alt: Laser Block Diagram
  :scale: 50 %
 
 Laser Enclosure
@@ -101,10 +101,10 @@ The cabinet includes a PDU, a temperature controller for the laser, a Network Sw
 
 The facility will provide 220VAC for the electronics cabinet along with a single Ethernet cable, which will run to the Network Switch within the cabinet. When the laser enclosure is opened, power to the electronics cabinet will be removed with the exception of the PDU and the Network Switch to allow for the laser to remain powered and on network.
 
-.. figure:: /_static/Laser Electronics Cabinet.png
- :name: as_built
- :target: ../_images/Laser Electronics Cabinet.png
- :alt: as_built
+.. figure:: /_static/Laser Electronics Cabinet.jpg
+ :name: Electronics Cabinet
+ :target: ../_images/Laser Electronics Cabinet.jpg
+ :alt: Electronics Cabinet
  :scale: 50 %
 
 Component Description

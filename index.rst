@@ -107,58 +107,44 @@ The facility will provide 220VAC for the electronics cabinet along with a single
  :alt: Electronics Cabinet
  :scale: 50 %
 
-Component Description
-=====================
+-	SW101: Controls the incoming power to the control cabinet. Interlocked to door per NEC requirements; disconnects all incoming AC power when ‘OFF’.
+-	CB101: Circuit breaker for incoming power. Inline before any energy consuming devices. UL489 rated per NEC requirements. Supplies power to PDU1 which powers LASER. Continuously ‘ON’ when circuit breaker is in the ‘on’ position.
+-	CB102: Circuit breaker for continuously powered devices. Inline before PS1 and PS4. UL508 rated per NEC requirements.
+-	K1 Contactor: Supplies power to distribution terminals for all non-continuously powered devices. Controlled by the safety relay SR001, and activated when LASER enclosure lid is closed.
+-	CB201: Circuit breaker for PS2
+-	CB202: Circuit breaker for PS3 
+-	CB203: Circuit breaker for PS5
+-	CB204: Circuit breaker for Solid state relay 3 (SSR3).
+-	CB205: Circuit breaker for Solid state relays 4 (SSR4). 
+-	PS1: Power Supply which supplies 24VDC power to Cisco Network Switch. 
+-	PS2: Power supply which supplies 24VDC to the temperature controller.
+-	PS3: Power Supply which supplies 24VDC to the Moxa Ethernet-to-serial server, and the LASER Enclosure electronics (SEL RTD scanner and Humidity Sensor).
+-	PS4: Power Supply which supplies 24VDC to the Safety Relay
+-	PS5: Power Supply which supplies 12VDC to the 50W and 25W heaters in the laser enclosure, the laser power meter and computer to control the power meter. 
+-	PS6: Power Supply which supplies 5VDC to the Raspberry Pi and DIN-102R within the laser enclosure. 
+-	SSR1 and SSR2: Solid state relays activated by the temperature controller, provides 12VDC to Heater 1 (50W Heater) and Heater 2 (25W Heater) respectively. These relays are controlled by the Omron temperature controller primary output, ‘Control Output 1’. 
+-	SSR3: Solid State Relay activated by the Raspberry Pi, provides AC power to the large cooling fan (Fan 1). 
+-	SSR4: Solid state relay activated by the temperature controller, provides AC power to the small cooling fan (Fan 2).
 
-Temperature Controller
-----------------------
-The temperature controller is the `Omron E5DC <https://assets.omron.com/m/249385e26c54a37e/original/E5_C-Series-Digital-Temperature-Controller-Datasheet.pdf>`__. Located in the electronics cabinet. This temperature controller is set to operate in ‘Reverse’ and ‘On/OFF’ modes; meaning that it will heat when the ambient temperature is below the set-point (or Process value, PV) and cool when above the set-point. 
+-	Temperature Controller: Temp_Ctrl. This Omron E5DC controller is set to operate in ‘Reverse’ and ‘On/OFF’ modes; meaning that it will heat when the ambient temperature is below the set-point (or Process value, PV) and cool when above the set-point. 
+In this mode the ‘Control Output’ on pins 3 and 4 control the flexible rectangular heaters and are presently wired to activate the 75W heater elements, through SSR1 and SSR2. (SSR1 and SSR2 are wired in parallel to the controller). 
 
-In ‘Reverse’ mode the ‘Control Output’ controls the flexible rectangular heaters and is wired to activate the 75W heater elements, through solid state relays. “ON/OFF’ control mode will energize the cooling fans when the ambient temperature is above the set-point. The controller will activate ‘Auxiliary Output 2’ to enable cooling. ‘Auxiliary Output 2’ is wired to a solid state relay to operate the small cooling fan.
+“On/OFF’ control mode will energize the cooling fans when the ambient temperature is above the set-point. The controller will activate ‘Auxiliary Output 2’ to enable cooling via pin 13. ‘Auxiliary Output 2’ is wired to SSR4 to operate the small cooling fan.
 
-The PV (Process Value) cable is mounted to the laser and is used to sense the temperature of the laser, read by the temperature controller. 
+The temperature controller has a configurable ‘Auxiliary Output 1’; which is presently programmed to Alarm1, which in-turn has been set to an absolute value of 15 C. This alarm will activate the ‘Auxiliary Output 1’ and will energize SSR1 and SSR2, powering the 75W elements on the heaters. Enabling both heater elements at or below 15 C will speed-up the heating process in very cold environments. 
 
-Safety Relay
-------------
-The safety relay is a `PILZ PNOZ s4 <https://www.farnell.com/datasheets/1679412.pdf>`__ model. This device is, technically, NOT part of the GIS system. This is a safety control, which ensures that the main power will be disconnected from the LASER enclosure when the lid is opened. The relay is configured in ‘Automatic start’ mode with ‘detection of shorts across contacts’, and will be wired to a lever-actuated limit switch mounted to the LASER enclosure, which activates when the lid is opened. 
+-	Safety relay SR001: This device is, technically, NOT part of the GIS system. This is a safety control, which ensures that the main power will be disconnected from the LASER enclosure when the lid is opened. The relay is presently configured in ‘Automatic start’ mode with ‘detection of shorts across contacts’, and will be wired to a lever-actuated, 2-pole, normally open switch mounted to the LASER enclosure, which activates when the lid is opened. Opening the lid on the LASER Enclosure will de-energize all of the electrical components, with the exception of the LASER power supply. This will ensure that service personnel will be safe, when working inside the Enclosure and that the crystal heaters inside the LASER will still be powered. Loss of Power to the enclosure will also remove power from the LASER’s safety interlock relay and the LASER cannot be operated. (The lever-switch can be purposefully defeated to allow powered service of the LASER if required… with appropriate site-specified safety procedures) 
 
-Opening the lid on the LASER Enclosure will de-energize all of the electrical components, with the exception of the LASER power supply. This will ensure that service personnel will be safe, when working inside the enclosure and that the crystal heaters inside the LASER will still be powered. Loss of Power to the enclosure will also remove power from the LASER’s safety interlock relay and the LASER cannot be operated. (The lever-switch can be purposefully defeated to allow powered service of the LASER if required… with appropriate site-specified safety procedures) 
+-	Ethernet switch EthSw1: Powered at all times except when the safety disconnect switch on the door of the electronics cabinet is ‘OFF’. Required for communications to internal devices. Supplies Ethernet ports for the Ethernet-to-Serial server, PDU, and Raspberry pi. Not enough power for POE! The power supply for this switch was chosen to minimize heat generation within the Thermal control cabinet and will not supply POE. (or very limited power to one port)
 
-Network Switch
---------------
-Cisco Catalyst `IE-3100-4T2S-E <https://www.cisco.com/c/en/us/products/collateral/networking/industrial-switches/catalyst-ie3100-rugged-series/catalyst-ie3100-rugged-series-ds.pdf>`__. Located in the electronics cabinet. 4-Port Ethernet, one port for input Ethernet and 3 ports for output Ethernet. The Network Switch is powered at all times except when the disconnect switch on the door of the electronics cabinet is ‘OFF’ or power is otherwise lost to the electronics cabinet. Supplies Ethernet ports for the Ethernet-to-Serial server, PDU, and Raspberry Pi. 
+-	Ethernet-to-Serial Server, E2S001: Moxa 5450I, 4 port Eth to Serial server. Port 1 is RS232 for LASER communications and port 2 is RS485 communications to the Omron Temperature controller. Ports 3 and 4 are reserved for future expansion.
 
-.. note::
-
-  The Network Switch does not have enough power for POE. 
-
-Ethernet-to-Serial Server
--------------------------
-`Moxa 5450I-T <http://store.express-inc.com/pdf/nport5400-usermanual.pdf>`__, 4 port Eth to Serial server. Port 1 is RS232 for LASER communications and port 2 is RS485 communications to the Omron Temperature controller. Ports 3 and 4 are reserved for future expansion. Information on the Moxa setup can be found `here <https://ts-electrometer.lsst.io/developer-guide/developer-guide.html#moxa-serial-to-ethernet-converter>`__.
-
-Power Distribution Unit (PDU)
------------------------------
-Power distribution unit is the `Raritan PX3-5288R <https://cdn.raritan.com/product-selector/pdus/PX3-5288R/PX3-5288R-spec.pdf>`__. One port is used for the power supplied to the Thermal controls within the cabinet. Only the safety relay and the Network Switch are NOT powered through this device. 2 other ports on the PDU are used to supply power to the LASER power supply. (PS81120 series)
-
-Raspberry Pi
-------------
-This Raspberry Pi is the `Advantech UNO-220-P4N2AE <https://www.mouser.com/datasheet/2/638/UNO_220_P4N2AE_DS_012822_2022012818282020230209024-3136364.pdf>`__. Used to program and read out thermal couples from the RTD scanner, to activate the large cooling fan when the temperature is passed a certain set point and to read out humidity levels via the humidity sensor. 
-
-RTD Scanner
------------
-SEL 1403-4 8 channel RTD Scanner. Located in the laser enclosure. 4 channels will be used to read temperature throughout the laser enclosure, each channel with a thermistor. The four thermistors are located in different places throughout the laser enclosure. The RTD scanner is read by the Raspberry Pi. 
-
-Humidity Sensor
----------------
-`OMEGA HX85A <https://assets.omega.com/pdf/test-and-measurement-equipment/humidity/humidity-meters/HX80A.pdf>`__ Humidity Sensor. Reads the humidity within the laser enclosure. Programmed through the Raspberry Pi. 
-
-Power Meter
------------
-The power meter is the `Newport 1919-R <https://www.newport.com/medias/sys_master/images/images/h36/h42/8945211080734/1919-R-Power-Energy-Meter-Datasheet.pdf>`__. Located in the laser enclosure. A direct power meter to monitor the direct output of the laser independent of the fiber systems, photodiodes and electrometers. This meter is not included in the T&S Software. Intended to provide fast feedback for potential changes needed in motor locations and temperatures on the laser to increase the laser power. The power meter is programmed and communicated with via an Intel CORE i7 NUC PC.
-
-Heaters
--------
-These heaters EFH Flexible Rectangular Heaters, one 25W and one 50W. Heat the laser at to desired operational temperature (the laser is designed to operator at ~25C, the dome temperature ranges from -3 to 19C). Activated when the temperature drops below a set temperature and turns off when laser is above the set temperature. These heaters are activated by the Omron temperature sensor which sends a signal to the SSR when the temperature is below the process value, PV (a thermal couple is attached to the laser and is read by the Omron temp sensor). 
+-	PDU1: power distribution unit. Port 3 is presently used for the power supplied to the Thermal controls within the cabinet. PS1, PS4 SR1, EthSw1 are NOT powered through this device. 2 other ports are used to supply power to the LASER power supply. (PS81120 series)
+-	Raspberry Pi: RPi. 
+-	RTD Scanner:
+-	Humidity Sensor:
+-	Power Meter:
+-	
 
 Small Cooling Fan
 -----------------

@@ -171,6 +171,12 @@ Mechatronics Fan Group `UF200BMB23-H2C2A-B1 <https://www.mechatronics.com/pdf/UF
 Operation
 ==========
 
+Thermal Chamber Setup
+---------------------
+
+Since there is no way to connect to the TTS in the thermal chamber, everything is run from a laptop with static IP addresses. The omron controller is controlled manually and the laser is operated with the hand paddle.
+
+
 .. table:: IP Addresses
 
    +--------------+-------------------+---------------------------------------+-------------------+-----------------+

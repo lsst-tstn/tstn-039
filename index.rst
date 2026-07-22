@@ -14,7 +14,7 @@ Description
 ===========
 In order to complete monochromatic dome flats, we are using a high powered tunable laser from Ekspla. This laser is designed to be operated in a lab environment, meaning in room temperature air. In order to decrease the length of the optical fiber, which will run from the laser to a projector that will illuminate the calibration screen, the laser will be mounted on the dome structure. The laser must be housed in an enclosure which will be warmed up when the laser is needed, and then rapidly cooled when laser operation has completed so that the enclosure is at the ambient temperature of the dome.
 
-Due to size restrictions on the laser platform, and a desire to remove heat sources from the laser enclosure, it was decided to move most of the electronics required for controlling and powering the laser in a separate enlcosure. However, the power supply for the laser and the thermal system are housed in the laser enclosure. Thereform, this document describes the electronics system for the laser, which is split between the laser enclosure and a separate electronics enclosure. The laser enclosure will be mounted on a platform built by the dome contractor EIE. The electronics enclosure will be located on a beam above the laser platform.
+Due to size restrictions on the laser platform, and a desire to remove heat sources from the laser enclosure, it was decided to move most of the electronics required for controlling and powering the laser in a separate enclosure. However, the power supply for the laser and the thermal system are housed in the laser enclosure. Therefore, this document describes the electronics system for the laser, which is split between the laser enclosure and a separate electronics enclosure. The laser enclosure will be mounted on a platform built by the dome contractor EIE. The electronics enclosure will be located on a beam above the laser platform.
 
 .. figure:: /_static/mounting.png
  :name: mounting
@@ -24,18 +24,18 @@ Due to size restrictions on the laser platform, and a desire to remove heat sour
 
 Additionally, both the laser and electronics enclosures must meet the safety requirements for operating a class-4 laser.
 
-
 Requirements
 ============
 
 Operational Requirements
 ------------------------
-While the laser can be "turned off", it is highly recommened that the laser power supply stay connected to power. In order to prevent condensation on the crystals which perofme the sum frequency generation, they must be constantly maintained at an elevated temperature. 
-This was measured to be ~15 W.
+While the laser can be "turned off", it is highly recommended that the laser power supply stay connected to power. In order to prevent condensation on the crystals which perform the sum frequency generation, they must be constantly maintained at an elevated temperature. The laser was measured to pull ~15 W when in this state. 
 
 Power Requirements
 ------------------
-The contractor shall supply 220V, 50 Hz, 16 Amps, singe phase, AC power at this location, with a single circuit breaker.
+The contractor shall supply 220V, 50 Hz, 16 Amps, single phase, AC power at this location, with a single circuit breaker.
+
+The maximum power needed for the entire laser system has been estimated at approximately 700W, with a standby power (system not in use, but still powered) of approximately 145W.
 
 Thermal Requirements
 --------------------
@@ -46,37 +46,65 @@ Thermal Requirements
 - Heating power calculation = 1176 W (value increases based upon thermal coupling efficiency [convection])
 - Average temperature tolerance= ±1 °C/hour (slow drifts acceptable)
 - Normal operating time is ≈ 4 hours
+- Laser ambient temperature = 18 to 25C
+-	Operational Temperature Range = -3 to 19C
+
+The laser was designed to operate in a laboratory environment, at an ambient temperature of 18 to 25C. Since the dome of the telescope has a typical ambient temperature of -3 to 19C, the laser will need to be temperature controlled in order for it operate properly. The laser will be stored in an insulated box with a thermal couple, two small flexible heaters and a small cooling fan. A temperature controller will be used to read out the temperature of the laser and turn on either the heaters or the cooling fan to maintain the laser at the desired temperature. The insulated box will help to maintain the temperature of the laser and to keep heater from dissipating into the dome environment. Also the inclusion of the insulation lowers the amount of power needed to heat the laser.
 
 Safety
 ------
 Since this is a class 4 laser, the enable line of the laser will be wired into the domes GIS system
 
-There is a safety switch on the lid of the laser enclosure such that when the laser enclosure is opened, power will be cut to the laser.
+A limit switch has been placed underneath the lid of the laser enclosure. The limit switch was selected such that when the laser enclosure is opened, all the electronics within the laser electronics cabinet and the laser enclosure will be shut off except for the PDU, the laser, and the Ethernet Switch. This way the laser is still powered and on network when service is required to the laser.
 
-There is a safety switch on the door of the electronics enclosure. When the door is opened, power to the electronics enclosure, and thus the laser enclosure.
+There is a safety disconnect switch on the door of the electronics enclosure. When the door is opened, all power is removed for all of the electronics in the electronics enclosure and the laser enclosure, including the laser.
 
 .. note::
 
   If the door to the electronics enclosure is opened, power will be completely turned off to the laser, including the crystals. If maintenance in the electronics enclosure is required, perhaps plug the laser into a backup power source so that the crystals will continue to be powered.
 
 
-
 Design
 ======
 
-.. figure:: /_static/Laser_block_final_26oct.png
- :name: block_diagram
- :target: ../_images/Laser_block_final_26oct.png
- :alt: block_diagram
+.. figure:: /_static/Laser_Electronics_Block_Diagram.PNG
+ :name: Laser Block Diagram
+ :target: ../_images/Laser_Electronics_Block_Diagram.PNG
+ :alt: Laser Block Diagram
  :scale: 50 %
 
-This Thermal Control Cabinet was specifically designed to run on 230VAC, 50Hz, 1 Phase, 16A.
-This Thermal Control Cabinet can be operated on 120VAC, 60Hz, 1 Phase, 15A for short periods of time.
+Laser Enclosure
+---------------
+The laser enclosure was designed to house the laser, the laser power supply, and several electronics, which includes a Temperature scanner, Raspberry Pi, Power Meter, and Humidity Scanner. The laser and power supply are held on a rack to elevate the laser and the remaining electronics are mounted underneath. A large cooling fan is mounted in the side of enclosure to cooling the entirety of the enclosure when the temperature is above a set point. 
 
-.. figure:: /_static/as_built.png
- :name: as_built
- :target: ../_images/as_built.png
- :alt: as_built
+The laser will be enclosed in an insulated box to maintain temperature. The flexible heaters and the small cooling fan inside this insulated box with the laser, each turning on or off when the laser is outside a certain set point. 
+
+The laser enclosure is designed to turn off all the electronics, excluding the laser and its power supply, when the enclosure is opened. A limit switch mounted to the door will be deactivated when the door is opened, cutting power to the electronics. 
+
+.. note::
+
+  When the laser enclosure is opened, the limit switch can be reactivated if necessary for testing purposes. This should only be done by the appropriate personnel.
+
+.. figure:: /_static/Laser Enclosure.png
+ :name: Laser Enclosure
+ :target: ../_images/Laser Enclosure.png
+ :alt: Laser Enclosure
+ :scale: 100 %
+
+Electronics Cabinet
+-------------------
+The Electronics Cabinet was specifically designed to run on 220VAC, 50Hz, 1 Phase, 16A. This Electronics Cabinet can be operated on 120VAC, 60Hz, 1 Phase, 15A for short periods of time.
+
+The Electronics cabinet must be powered down via the disconnect switch on the door in order to open the enclosure. This will shut off power to all electronics in the cabinet and the laser enclosure.
+
+The cabinet includes a PDU, a temperature controller for the laser, a Network Switch to provide Ethernet to the PDU and the Raspberry Pi (located in the laser enclosure), an Ethernet to Serial server for the laser and the temperature controller, a safety relay to shut off power to the electronics when the laser enclosure is opened, multiple solid state relays to controller the heaters and cooling fans (located in laser enclosure) and 12VDC and 24VDC power supplies. 
+
+The facility will provide 220VAC for the electronics cabinet along with a single Ethernet cable, which will run to the Network Switch within the cabinet. When the laser enclosure is opened, power to the electronics cabinet will be removed with the exception of the PDU and the Network Switch to allow for the laser to remain powered and on network.
+
+.. figure:: /_static/Laser Electronics Cabinet.jpg
+ :name: Electronics Cabinet
+ :target: ../_images/Laser Electronics Cabinet.jpg
+ :alt: Electronics Cabinet
  :scale: 50 %
 
 -	SW101: Controls the incoming power to the control cabinet. Interlocked to door per NEC requirements; disconnects all incoming AC power when ‘OFF’.
@@ -118,9 +146,22 @@ The temperature controller has a configurable ‘Auxiliary Output 1’; which is
 -	Power Meter:
 -	
 
+Small Cooling Fan
+-----------------
+Circuit-Test Electronics `CFA1158038HS <http://www.circuittest.com/Media/Data/Specifications/S-AC_Fans_A0838_Series.pdf>`__, AC powered cooling fan. This fan is for cooling the laser when the temperature exceeds the set point temperature. Activated when the temperature of the laser rises above the set temperature and turns off when the temperature drops below the set point. The Omron temperature sensor sends a signal to a SSR when the temperature is below the PV. 
+
+Large Cooling Fan
+-----------------
+Mechatronics Fan Group `UF200BMB23-H2C2A-B1 <https://www.mechatronics.com/pdf/UF200BMB-H2.pdf>`__, AC powered cooling fan, mounted within the wall of the Laser Enclosure. This fan is for cooling the laser enclosure when the temperature of the laser enclosure exceeds a set temperature. Activated when the temperature of the laser enclosure is higher than set point. The RTD scanner has multiple thermistors connected to multiple places in the laser enclosure, the temperatures are then read by the Raspberry Pi. The large cooling fan is then turned on when the Raspberry Pi reads the average temperature is higher than the set point and sends a signal to a SSR which turns on the large cooling fan.
 
 Operation
 ==========
+
+Thermal Chamber Setup
+---------------------
+
+Since there is no way to connect to the TTS in the thermal chamber, everything is run from a laptop with static IP addresses. The omron controller is controlled manually and the laser is operated with the hand paddle.
+
 
 .. table:: IP Addresses
 
@@ -148,18 +189,13 @@ Operation
    | 8      | Laser (2/2)        |
    +--------+--------------------+     
 
-
 .. note::
 
-  The heaters and cooling Fan **MUST NOT** be run for more than brief periods on 120VAC, they may be permanently damaged! If there must be an extended period of usage at 120VAC, CB203, CB204, CB205, CB206 can be set to OFF. No heating/cooling will be available but all other functions will be available.
-
-
- 
+  The heaters and cooling fans **MUST NOT** be run for more than brief periods on 120VAC, they may be permanently damaged! If there must be an extended period of usage at 120VAC, CB203, CB204, CB205, CB206 can be set to OFF. No heating/cooling will be available but all other functions will be available.
 
 Additional Documentation
 ========================
 Initial documentation for the whole laser system, including the laser enclosure, was done on `Confluence <https://confluence.lsstcorp.org/display/LTS/Calibration+LASER+Cabinet>`__, and additional notes for the electronics was documented `here <https://confluence.lsstcorp.org/display/LTS/Requirements+and+Notes+for+Enclosure+Thermal+Controls>`__.
-
 
 Docushare: https://docushare.lsst.org/docushare/dsweb/View/Collection-13124
 
